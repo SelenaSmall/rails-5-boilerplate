@@ -32,10 +32,11 @@ Migration 'create_seed_user' initialises credentials for seed admin user
 
 Pundit update the application controller and creates an Application policy for which user roles can view what pages/ data.
 
+Present styles can be easily modified in the stylesheets directory. I have tried to use as few classes as possible and ensured that all styles are also responsively designed.
+
 --------------------------------------------------------------
 TBD
 --------------------------------------------------------------
-- Base Styling 
 - User Management Capabilities: INCL creation of new users/ invitable?/ User controller based on DeviseCreateUsers migration?
 - On Screen Instruction Set to get started
 --------------------------------------------------------------
