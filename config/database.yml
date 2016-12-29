@@ -3,13 +3,13 @@ default: &default
   adapter: postgresql 	# required
   encoding: unicode
   pool: 5
-  username: selenasmall # required
-  password:	password 	# required
-
 
 development:
   <<: *default
+  username: selenasmall # required
+  password: password  # required
   database: boilerplate # name of the database you will use
+  host: localhost
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
