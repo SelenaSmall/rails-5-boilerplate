@@ -9,6 +9,7 @@ gem 'pg', '~> 0.18.4'
 gem 'bootstrap-sass'
 gem 'bootstrap_form'
 gem 'devise'
+gem 'pundit'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets

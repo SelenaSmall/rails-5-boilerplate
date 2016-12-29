@@ -28,13 +28,16 @@ Application.html.erb controls overall layout for application, include nav bar st
 
 User.rb defines user roles as enums and devise applicable to users
 
+Migration 'create_seed_user' initialises credentials for seed admin user
+
+Pundit update the application controller and creates an Application policy for which user roles can view what pages/ data.
+
 --------------------------------------------------------------
-TBC
+TBD
 --------------------------------------------------------------
-- Seed Root User
 - Implement Pundit
 - Base Styling 
-- User Management Capabilities
+- User Management Capabilities: INCL creation of new users
 - On Screen Instruction Set
 --------------------------------------------------------------
 --------------------------------------------------------------
