@@ -35,13 +35,11 @@ Pundit update the application controller and creates an Application policy for w
 --------------------------------------------------------------
 TBD
 --------------------------------------------------------------
-- Implement Pundit
 - Base Styling 
-- User Management Capabilities: INCL creation of new users
-- On Screen Instruction Set
+- User Management Capabilities: INCL creation of new users/ invitable?/ User controller based on DeviseCreateUsers migration?
+- On Screen Instruction Set to get started
 --------------------------------------------------------------
 --------------------------------------------------------------
-
 
 Largely standard as per the rails guides:
 

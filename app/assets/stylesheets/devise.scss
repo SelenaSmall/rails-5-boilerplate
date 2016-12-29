@@ -1,0 +1,35 @@
+.devise-h2 {
+	margin-top: 0px;
+	text-align: center;
+    color: rgba(255,255,255,0.8);
+}
+
+.devise-login-page {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    margin: 40px auto;
+    background: #EF1E99;
+    border-radius: 5px;
+    border-bottom-style: groove;
+    border-right-style: groove;
+}
+
+.devise-shared-links {
+	text-align: right;
+}
+
+#main-page-rake-cmd {
+ 	max-width: 450px;
+    width: 100%;
+    margin: 4px auto;
+    padding: 5px;
+	background: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,0.4);
+    font-size: 16px;  
+}
+
+#user_email, #user_password {
+	width: 100%;
+}

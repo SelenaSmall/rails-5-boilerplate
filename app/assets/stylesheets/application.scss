@@ -22,4 +22,32 @@
  @import "bootstrap";
  body { padding-top: 10px; }
 
+ a { color: #FFF }
+
+ form { margin: 15px 0px; }
+
+ .main-header {
+ 	text-align: center;
+ }
+
+ .main-container { 
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 1200px;
+    margin: auto;
+ } 
+
+ .container-fluid {
+ 	margin-top: 7px;
+ }
+
+ .navbar-right {
+ 	margin: 0px;
+ }
+
+ .btn-default { background: #EF1E99; }
+
 @import "home";
+@import "devise";
