@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   devise_for :users, controllers: {passwords: 'devise/passwords'}
+  resources :users
+  
 end

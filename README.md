@@ -34,10 +34,13 @@ Pundit update the application controller and creates an Application policy for w
 
 Present styles can be easily modified in the stylesheets directory. I have tried to use as few classes as possible and ensured that all styles are also responsively designed.
 
+User Management Capabilities are linked to the User Controller. An Index page will list all of the Users, while New user can be created by Admin and Invited to join the aplication with Pundit 'invitable' feature.
+
 --------------------------------------------------------------
 TBD
 --------------------------------------------------------------
-- User Management Capabilities: INCL creation of new users/ invitable?/ User controller based on DeviseCreateUsers migration?
+- User Management Capabilities: INCL Create New users/ Invitable
+- User Management Styling
 - On Screen Instruction Set to get started
 --------------------------------------------------------------
 --------------------------------------------------------------
@@ -68,6 +71,7 @@ Largely standard as per the rails guides:
 * Deployment instructions
 	- Ngrok? **
 	- Heroku? **
+	- Lambda? **
 
 --------------------------------------------------------------
 --------------------------------------------------------------

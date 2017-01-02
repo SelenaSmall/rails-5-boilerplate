@@ -1,0 +1,27 @@
+<div class="container">
+ <div class="row">
+  <h3>Users</h3>
+  <div class="column">
+   <table class="table">
+    <tbody>
+     <% @users.each do |user| %>
+      <tr>
+       <td>
+        <%= link_to user.email, user %>
+        </td>
+        <td>
+          <%= form_for(user) do |f| %>
+            <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
+            <%= f.submit 'Change Role', :class => 'button-xs' %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button-xs') unless user == current_user %>
+        </td>
+      </tr>
+     <% end %>
+    </tbody>
+   </table>
+  </div>
+ </div>
+</div>
