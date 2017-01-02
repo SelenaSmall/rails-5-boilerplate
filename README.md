@@ -39,7 +39,7 @@ User Management Capabilities are linked to the User Controller. An Index page wi
 --------------------------------------------------------------
 TBD
 --------------------------------------------------------------
-- User Management Capabilities: INCL Create New users/ Invitable
+- User Management Capabilities: INCL Create, Updte, Destroy users/ Invitable
 - User Management Styling
 - On Screen Instruction Set to get started
 --------------------------------------------------------------

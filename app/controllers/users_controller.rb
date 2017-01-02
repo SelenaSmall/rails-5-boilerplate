@@ -1,12 +1,12 @@
 class UsersController < HomeController
 	before_action :authenticate_user!
+	before_action :set_user, only: [:show, :edit]
 
 	def index
 		@users = User.all
 	end
 
 	def show
-		@user = User.find(params[:id])
 	end	
 
 	def new
@@ -28,13 +28,20 @@ class UsersController < HomeController
 	    end
 	end
 
+	def update
+	end
+
 	def destroy
 	end
 
 	private
 
-	def secure_params
+	def user_params
     	params.require(:user).permit(:role)
   	end
+
+	def set_user
+		@user = User.find(params[:id])
+	end
 
 end
