@@ -36,11 +36,19 @@ Present styles can be easily modified in the stylesheets directory. I have tried
 
 User Management Capabilities are linked to the User Controller. An Index page will list all of the Users, while New user can be created by Admin and Invited to join the aplication with Pundit 'invitable' feature.
 
+Devise_invitable https://github.com/scambra/devise_invitable allows new users to join the applicaiton upon invitation sent by email. Invitation emails are formated in views/users/invitations and views/users/mailer
+
+Esnure you follow the set up instructions for devise_invitable and that the following config fields are correct in your initializer/devise.rb:
+config.mailer_sender = 'example@test.com'
+config.scoped_views = true
+
 --------------------------------------------------------------
 TBD
 --------------------------------------------------------------
-- User Management Capabilities: INCL Create, Updte, Destroy users/ Invitable
+- Update user create views at user/invitations/new and user/invitations/edit
 - User Management Styling
+---- Modals
+---- Simplified Forms for show/edit
 - On Screen Instruction Set to get started
 --------------------------------------------------------------
 --------------------------------------------------------------

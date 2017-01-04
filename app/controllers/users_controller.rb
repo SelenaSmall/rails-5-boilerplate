@@ -1,6 +1,6 @@
 class UsersController < HomeController
-	before_action :authenticate_user!
-	before_action :set_user, only: [:show, :edit]
+	before_action :set_user, only: [:show, :edit, :update, :destroy]
+	before_action :authorize_user
 
 	def index
 		@users = User.all
@@ -19,29 +19,46 @@ class UsersController < HomeController
 	def create
 		@user = User.new(user_params)
 
-	    respond_to do |format|
-	      if @user.save
-	        format.html { redirect_to @user, notice: 'user was successfully created.' }
-	      else
-	        format.html { render :new }
-	      end
-	    end
+		if @user.save
+			@user.invite!
+			redirect_to users_path, notice: "#{@user[:email]} was created!"
+		else
+			redirect_to users_path, alert: "Unable to create user #{@user[:email]}. #{@user.errors.full_messages.join(', ')}"
+		end
 	end
 
 	def update
+		if @user.update(user_params)
+			redirect_to users_path, notice: "#{@user[:email]} was updated!"
+		else
+			redirect_to users_path, alert: "Unable to update user. #{@user.errors.full_messages.join(', ')}"
+		end
 	end
 
 	def destroy
+		if @user.destroy
+			redirect_to users_path, notice: "#{@user[:email]} was destroyed!"
+		else
+			redirect_to users_path, alert: "Unable to destroy user. #{@user.errors.full_messages.join(', ')}"
+		end
 	end
 
 	private
 
 	def user_params
-    	params.require(:user).permit(:role)
+    	params.require(:user).permit(:role, :email, :password)
   	end
 
 	def set_user
-		@user = User.find(params[:id])
+		@user = User.find_by(id: params[:id])
+
+		unless @user
+			return redirect_to users_path, alert: "That user does not exist"
+		end
+	end
+
+	def authorize_user
+		@user.nil? ? authorize(User) : authorize(@user)
 	end
 
 end
