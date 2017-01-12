@@ -22,8 +22,6 @@
  @import "bootstrap";
  body { padding-top: 10px; }
 
- a { color: #FFF }
-
  form { margin: 15px 0px; }
 
  .main-header {
@@ -46,8 +44,6 @@
  .navbar-right {
  	margin: 0px;
  }
-
- .btn-default { background: #EF1E99; }
 
 @import "devise";
 @import "home";

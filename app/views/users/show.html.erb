@@ -1,4 +1,4 @@
 <h3>User <%= @user.email %></h3>
 <p>Email: <%= @user.email if @user.email %></p>
-<p>Password: <%= @user.password if @user.password %></p>
-<p>Role: <%= @user.role if @user.role %></p>
+
+<%= link_to 'Edit or Delete my Account', edit_user_registration_path, class: "btn btn-default" %>

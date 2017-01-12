@@ -38,18 +38,27 @@ User Management Capabilities are linked to the User Controller. An Index page wi
 
 Devise_invitable https://github.com/scambra/devise_invitable allows new users to join the applicaiton upon invitation sent by email. Invitation emails are formated in views/users/invitations and views/users/mailer
 
+Devise.registerable allows users to sign up to the applicaiton. The sign up link is located in app/views/devise/shared/_links 
+
 Esnure you follow the set up instructions for devise_invitable and that the following config fields are correct in your initializer/devise.rb:
 config.mailer_sender = 'example@test.com'
 config.scoped_views = true
 
 --------------------------------------------------------------
 TBD
---------------------------------------------------------------
-- Update user create views at user/invitations/new and user/invitations/edit
-- User Management Styling
----- Modals
----- Simplified Forms for show/edit
+- Model validations
+
+- Basic Styling
+--- Modal Forms for show/edit
+--- Use the asset pipeline to include icons from icomoon.com
+
+- Deployment config
+--- Deploy environment settings
+--- Capistrano, RDS & EC2/
+--- JRuby & Lambda
+
 - On Screen Instruction Set to get started
+
 --------------------------------------------------------------
 --------------------------------------------------------------
 
