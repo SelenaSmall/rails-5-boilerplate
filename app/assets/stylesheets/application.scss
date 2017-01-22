@@ -18,8 +18,14 @@
 *= require rails_bootstrap_forms
 */
 
-@import "bootstrap-sprockets";
+ @import "bootstrap-sprockets";
  @import "bootstrap";
+
+ @import "devise";
+ @import "home";
+ @import "users";
+ @import "icomoon";
+ 
  body { padding-top: 10px; }
 
  form { margin: 15px 0px; }
@@ -45,6 +51,3 @@
  	margin: 0px;
  }
 
-@import "devise";
-@import "home";
-@import "users";

@@ -47,21 +47,20 @@ config.scoped_views = true
 To include icons in your application like the downloadables from icomoon.com, you must follow the rule for the Asset Pipeline which Rails depends on for compiling assets. 
 1. After choosing the icons you want to include in your application at icomoon.com, you'll download and unzip the file. 
 2. Copy the 'fonts' folder across to your app/assets/ directory.
-3. Ensure you have the config variables set in to access this folder your config/initializers/assests.rb and app/assets/manifest.js
-4. Set @font-face in assets/stylesheets/application.scss
+3. Ensure you have the config variables set to compile your font assets in config/initializers/assests.rb
+	- Rails.application.config.assets.paths << Rails.root.join("app", "assets", "fonts")
+4. Add the @font-face styles supplied in your download to a seperate style file assets/stylesheets/icomoon.scss, remembering to inlcue that in application.scss. The url paths will need to be adjusted for these icons to work. Simply remove the 'fonts/' at the begining of each url. Ie:
+	- url('fonts/icomoon.svg?jirsj0#icomoon') format('svg');
+Bcomes:
+	- url('icomoon.svg?jirsj0#icomoon') format('svg');
 5. See how to display your newly added icons in views/layouts/application.html.erb
 
 
 --------------------------------------------------------------
 TBD
-- Assest Pipeline
---- Include icons from icomoon.com
-	config/initializers/assests.rb
-	app/assets/manifest.js
-
 - Config Instructions for secrets.yml, database.yml, .gitignore
 - Deployment config
---- Deploy environment settings
+--- Production environment settings
 --- Capistrano, RDS & EC2/
 --- JRuby & Lambda
 
