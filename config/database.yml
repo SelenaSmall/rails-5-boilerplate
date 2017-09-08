@@ -1,22 +1,24 @@
 # Update this file to be configured to your database 
 default: &default
-  adapter: postgresql 	# required
-  encoding: unicode
-  pool: 5
+  adapter: postgresql
+  encoding: <%= ENV["DATABASE_ENCODING"] || "unicode" %>
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV["DATABASE_HOST"] || "postgres"%>
+  user: postgres
+  password: notasecret
 
 development:
   <<: *default
-  username: selenasmall # required
-  password: password  # required
-  database: boilerplate # name of the database you will use
-  host: localhost
+  database: boilerplate
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-test:
-  <<: *default
-  database: boilerplate_test
+# test:
+#   <<: *default
+#   database: boilerplate_test
 
 production:
   <<: *default

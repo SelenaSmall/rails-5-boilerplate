@@ -23,3 +23,10 @@
 
 # Ignore database config
 config/database.yml
+
+# Sensitive config files 
+development.env 
+staging.env 
+production.env 
+test.env 
+.env

@@ -1,0 +1,18 @@
+#!/bin/bash
+set -e
+env=$RAILS_ENV
+
+if [ -z "$env" ]; then
+  env="development"
+fi
+
+bundle check || bundle install
+
+# rake db:migrate returns an error if the database does not yet exist.
+rake db:migrate 2>/dev/null || ./bin/db_setup
+
+if [ $env == "development" ] || [$env == "test" ]; then
+  exec "$@"
+else
+  bundle exec puma -C config/puma.rb
+fi

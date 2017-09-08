@@ -1,0 +1,15 @@
+#!/bin/bash
+env=$RAILS_ENV
+
+if [ -n "$1" ]; then
+  env=$1
+elif [ -z "$env" ]; then
+  echo -n "Please enter your environment [$env] > "
+  read response
+  if [ -n "$response" ]; then
+    env=$response
+  fi
+fi
+
+RAILS_ENV=$env bundle exec rake db:create
+RAILS_ENV=$env bundle exec rake db:migrate
