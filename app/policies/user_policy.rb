@@ -1,5 +1,5 @@
 class UserPolicy < ApplicationPolicy
-attr_reader :current_user, :user
+  attr_reader :current_user, :user
 
   def initialize(current_user, user)
     @current_user = current_user
@@ -7,11 +7,11 @@ attr_reader :current_user, :user
   end
 
   def index?
-    current_user.admin? or current_user.manager
+    current_user.admin? || current_user.manager
   end
 
   def show?
-    current_user.admin? or current_user == user
+    current_user.admin? || (current_user == user)
   end
 
   def create?
@@ -23,7 +23,7 @@ attr_reader :current_user, :user
   end
 
   def update?
-    current_user.admin? or current_user == user
+    current_user.admin? || (current_user == user)
   end
 
   def edit?
