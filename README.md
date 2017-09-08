@@ -1,103 +1,226 @@
-# README
+# Rails-5-boilerplate
 
-Base project for apps written in Rails 5 set up to utilise the Devise and Pundit gems for authentication and authorisation. This base is configured with a seed user, 3 roles which can be easily updated. It also boasts a sample controller and views utilising bootstrap styles for login and user creation.
+Dockerized development environment for a rails 5.1.0 app which makes use of Devise, Pundit, Rspec, Postgres and Redis. This boilerplate is configured with a seed user, 3 roles which can be easily updated. It also boasts a sample controller and views utilising bootstrap styles for login and user creation.
 
---------------------------------------------------------------
-QUICKSTART GUIDE
---------------------------------------------------------------
-Clone this repo to your local machine, run $ bundle install, fire up the rails server and view the sample application on http://localhost:3000/
+## Installation
 
-For more detailed installation instruction see below:
+__Environment__
 
+- Docker version 17.06.1-ce, build 874a737	
 
---------------------------------------------------------------
-STEP BY STEP INSTRUCTIONAL GUIDE
---------------------------------------------------------------
-Ensure you have rails 5.0.1 and ruby 2.3.3 installed. Use rvm to switch Ruby versions as per guides 
-Clone repo to your local machine. 
-Make a fresh repo - ie remove all .git files and run a new git init as per the github guides
-Ensure you have bundler installed and from the command line run Bundle Install to install all require dependencies.
-Start the server $ rails s
-View your blank application on http://localhost:3000/
+__System Dependencies__ 
 
-Routes point to home/index as default home page
+- Rails 5.1.0
+- Ruby 2.4.1
 
-Application controller requires an authenticated user to view the app
+__Gems__
 
-Application.html.erb controls overall layout for application, include nav bar styled by bootstrap
+- devise
+- devise_invitable
+- pundit
+- bootstrap-sass
+- bootstrap_form
+- pg
+	
+Make sure you have Docker installed and running correctly https://docs.docker.com/engine/installation/
 
-User.rb defines user roles as enums and devise applicable to users
+__Clone this Repo__
 
-Migration 'create_seed_user' initialises credentials for seed admin user
+> $ git clone https://github.com/selenasmall/rails-5-boilerplate.git
 
-Pundit update the application controller and creates an Application policy for which user roles can view what pages/ data.
+__Generate a secret key__
 
-Present styles can be easily modified in the stylesheets directory. I have tried to use as few classes as possible and ensured that all styles are also responsively designed.
+Rails has a built-in rake task to do this https://www.jamesbadger.ca/2012/12/18/generate-new-secret-token/
 
-User Management Capabilities are linked to the User Controller. An Index page will list all of the Users, while New user can be created by Admin and Invited to join the aplication with Pundit 'invitable' feature.
+> $ rake secret
 
-Devise_invitable https://github.com/scambra/devise_invitable allows new users to join the applicaiton upon invitation sent by email. Invitation emails are formated in views/users/invitations and views/users/mailer
+__Create a development.env file__
 
-Devise.registerable allows users to sign up to the applicaiton. The sign up link is located in app/views/devise/shared/_links 
+This is similar to the example.env you already have and belongs in the app root. This file has been added to the .gitingore because these values are sensitive - make sure this file does NOT get added to your repo.
+```
+#
+# Environment config
+#
+# WEB_IMAGE_URL=boilerplate_web:latest
+APP_IMAGE_URL=boilerplate_app:latest
 
-Esnure you follow the set up instructions for devise_invitable and that the following config fields are correct in your initializer/devise.rb:
+#
+# Rails App config
+#
+RAILS_ENV=development
+# Necessary for ecs containers to send logs to CloudWatch
+# RAILS_LOG_TO_STDOUT=true
+# RAILS_MAX_THREADS=5
+SECRET_KEY_BASE=
+DATABASE_URL=postgresql://postgres:notasecret@postgres:5432/boilerplate?pool=5
+REDIS_URL=redis://redis:6379/9
+CABLE_REDIS_URL=redis://redis:6379/1
+
+#
+# Action Mailer config
+#
+MAILER_OPTIONS_FROM=selenawiththetattoo@gmail.com
+MAILER_URL_HOST=192.168.99.100:3000
+MAILER_URL_PROTOCOL=http
+MAILER_DELIVERY_METHOD=sendmail
+
+# Replace `localhost` with your Docker Machine IP address:
+# ACTION_MAILER_HOST=192.168.99.100:3000
+# ACTION_CABLE_FRONTEND_URL=ws://192.168.99.100:28080
+# ACTION_CABLE_ALLOWED_REQUEST_ORIGINS=http:\/\/192.168.99.100*
+```
+
+__From the root of the app build the docker image and run your app__
+
+> $ docker-compose up app
+
+***
+
+## Usage
+
+### Run the app
+
+Run the program from the app root
+
+> $ docker-compose up app
+
+In your terminal, you should see your containers building
+
+```
+Starting rails5boilerplate_postgres_data_1 ...
+Starting rails5boilerplate_bundle_1 ...
+Starting rails5boilerplate_postgres_data_1
+Starting rails5boilerplate_bundle_1
+Starting rails5boilerplate_redis_data_1 ...
+Starting rails5boilerplate_redis_data_1 ... done
+Starting rails5boilerplate_bundle_1 ... done
+rails5boilerplate_postgres_1 is up-to-date
+Starting rails5boilerplate_app_1 ...
+Starting rails5boilerplate_app_1 ... done
+Attaching to rails5boilerplate_app_1
+```
+
+And when the build is complete, you will see that the app is running at localhost:3000
+
+```
+app_1            | The Gemfile's dependencies are satisfied
+app_1            | Puma starting in single mode...
+app_1            | * Version 3.10.0 (ruby 2.4.1-p111), codename: Russell's Teapot
+app_1            | * Min threads: 5, max threads: 5
+app_1            | * Environment: development
+app_1            | * Listening on tcp://0.0.0.0:3000
+app_1            | Use Ctrl-C to stop
+```
+
+You can check this in the browser by visiting
+
+> http://localhost:3000
+
+***
+
+### Customization
+
+__Seed user__
+
+Migration 'create_seed_user' initialises credentials for seed admin user. If you want to change this, you will simply need to rebuild your docker container
+
+> $ docker-compose app build
+>
+> $ docker-compose up app
+
+<br>
+
+__Roles and Privelleges__
+
+User model defines user roles as enums and can be edited by updat the roles on line 7
+
+```
+enum role: [:admin, :manager, :user]
+```
+
+ApplicationController requires an authenticated user to view the app - to change this, simply remove
+
+```
+before_action :authenticate_user!
+```
+
+Application policy generated by Pundit determines for user privelleges based on their roles. This can be edited by following Pundit's documentation at https://github.com/elabs/pundit
+
+<br>
+
+__User Management__
+
+User Management Capabilities are linked to the User Controller.
+
+- New users can only be created by Admin (as specified in the UserPolicy) and Invited to join the aplication with Devise 'invitable' gem.
+
+Devise_invitable https://github.com/scambra/devise_invitable allows new users to join the applicaiton upon invitation sent by email. Invitation emails are formated in 
+
+- views/users/invitations
+- views/users/mailer
+
+Devise registerable allows users to sign up to the applicaiton. The sign up link can be added/ removed from your home page at 
+
+- app/views/devise/shared/_links 
+
+Update the mailer_sender for devise_invitable in initializer/devise.rb
+
+```
 config.mailer_sender = 'example@test.com'
-config.scoped_views = true
+```
 
-To include icons in your application like the downloadables from icomoon.com, you must follow the rule for the Asset Pipeline which Rails depends on for compiling assets. 
+<br>
+
+__Layouts__
+
+* Routes point to home/index as default home page
+
+* Application.html.erb controls overall layout for application, include nav bar styled by bootstrap
+
+* Present styles can be easily modified in the stylesheets directory. I have tried to use as few classes as possible and ensured that all styles are also responsively designed.
+
+<br>
+
+__Icomoon Icons__
+
+_Optional_
+
+I have configured the Asset Pipeline which Rails depends on for compiling assets to allow the additionl of external fonts like the ones found at http://icomoon.com 
+
 1. After choosing the icons you want to include in your application at icomoon.com, you'll download and unzip the file. 
+
 2. Copy the 'fonts' folder across to your app/assets/ directory.
+
 3. Ensure you have the config variables set to compile your font assets in config/initializers/assests.rb
 	- Rails.application.config.assets.paths << Rails.root.join("app", "assets", "fonts")
+
 4. Add the @font-face styles supplied in your download to a seperate style file assets/stylesheets/icomoon.scss, remembering to inlcue that in application.scss. The url paths will need to be adjusted for these icons to work. Simply remove the 'fonts/' at the begining of each url. Ie:
 	- url('fonts/icomoon.svg?jirsj0#icomoon') format('svg');
-Bcomes:
+	
+    Becomes:
 	- url('icomoon.svg?jirsj0#icomoon') format('svg');
+
 5. See how to display your newly added icons in views/layouts/application.html.erb
 
+***
 
---------------------------------------------------------------
-TBD
-- Config Instructions for secrets.yml, database.yml, .gitignore
+## Testing
+
+__Coming soon!!__
+
+- TDD
+- BDD
+
+***
+
+## Deployment
+
+__Coming soon!!__
+
 - Deployment config
---- Production environment settings
---- Capistrano, RDS & EC2/
---- JRuby & Lambda
+- Production environment settings
+- Capistrano, RDS & EC2/
+- JRuby & Lambda
+- Heroku
 
--- Configure a Dockerfile for local development, in which case you just run docker
-- On Screen Instruction Set to get started
-
---------------------------------------------------------------
---------------------------------------------------------------
-
-Largely standard as per the rails guides:
-
-* Ruby version 2.3.3, Rails version 5.0.1
-
-* System dependencies 
-	- rvm/  see gemfile
-	- gems: Devise, Pundit, Bootstrap
-
-* Configuration
-	Esure you have postgres setup on your machine with a user. You can following the following example to get set up: https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres
-	- update db config values in the config/database.yml
-
-* Database creation 
-	- Postgres
-
-* Database initialization 
-	- Rake
-
-* How to run the test suite 
-	- Rspec?
-
-* Services (job queues, cache servers, search engines, etc.) 
-
-* Deployment instructions
-	- Ngrok? **
-	- Heroku? **
-	- Lambda? **
-
---------------------------------------------------------------
---------------------------------------------------------------
-** Maybe I should run the build with Docker integration too? **
+***
