@@ -1,34 +1,94 @@
-<div class="main-header">
-  <h1>WELCOME TO YOUR APPLICATION!</h1>
-  <p>Update your seed user credentials, navigate to your applicaiton dir from you terminal and paste the comman below to run a new migration:</p>
-  <p id="main-page-rake-cmd">$ rake db:drop && rake db:create && rake db:migrate</p>
-  <p>Once you have done that, log in with your new credentials and take a look around!</p>
-</div>
-<div class="devise-login-page">
-  <h2 class="devise-h2">Log in</h2>
+<div class="row">
+  <div class="col-md-6">
+    <p class="h1">Congratulations!</p>
+    <p>Your docker-rails skeleton app is ready to be modified!</p>
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true %>
-    </div>
+    <p>The first thing you should do is update seed user credentials and create a new a repo for your project.</p>
 
-    <div class="field">
-      <%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "off" %>
-    </div>
+    <p>## Update your seed user credentials at db/migrate/create_seed_user.rb</p>
 
-    <% if devise_mapping.rememberable? -%>
-      <div class="field">
-        <%= f.check_box :remember_me %>
-        <%= f.label :remember_me %>
+    <p>## Navigate to your application dir from you terminal and paste the commands below to run a new migration</p>
+
+    <blockquote class="blockquote">
+      <p class="mb-0">$ docker-compose run app rails db:drop</p>
+      <p class="mb-0">$ docker-compose run app rails db:create</p>
+      <p class="mb-0">$ docker-compose run app rails db:migrate</p>
+    </blockquote>
+
+    <p>**note: You should not use this method for standard migration alterations.</p>
+
+    <div class="row">
+      <div class="col-xs-8 col-xs-offset-2">
+        <div class="well">
+          <p class="h3">Sign in</p>
+
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="form-group">
+              <%= f.email_field :email, autofocus: true, placeholder: 'Email', class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.password_field :password, autofocus: true, autocomplete: "off", placeholder: 'Password', class: "form-control" %>
+            </div>
+
+            <% if devise_mapping.rememberable? -%>
+              <div class="field">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me %>
+              </div>
+            <% end -%>
+
+            <%= f.submit "Log in", class: "btn btn-success btn-block" %>
+          <% end %>
+          <%= render "devise/shared/links" %>
+        </div>
       </div>
-    <% end -%>
-
-    <div class="actions">
-      <%= f.submit "Log in" %>
     </div>
-  <% end %>
+    <p>Edit this page at views/devise/sessions/new.erb</p>
+  </div>
 
-  <%= render "devise/shared/links" %>
+  <div class="col-md-6">
+  <p class="h3">Create a new repo</p>
+    Move into the root directory of your project
+    <blockquote class="blockquote">
+      <p class="mb-0">$ cd {root dir}</p>
+    </blockquote>
+
+    Remove the existing git data
+    <blockquote class="blockquote">
+      <p class="mb-0">$ rm -rf .git</p>
+    </blockquote>
+
+    Initialise a new repo
+    <blockquote class="blockquote">
+      <p class="mb-0">$ git init</p>
+    </blockquote>
+
+    Add your changes
+    <blockquote class="blockquote">
+      <p class="mb-0">$ git add .</p>
+    </blockquote>
+
+    Commit your changes
+    <blockquote class="blockquote">
+      <p class="mb-0">$ git commit -m ‘First commit’</p>
+    </blockquote>
+
+    Log into GitHub and create a new repo
+    <br>
+    Add your remote origin
+    <blockquote class="blockquote">
+      <p class="mb-0">$ git remote add origin {remote url}</p>
+    </blockquote>
+
+    Verify your remote origin
+    <blockquote class="blockquote">
+      <p class="mb-0">$ git remote -v</p>
+    </blockquote>
+
+    Push changes - you’re now ready to make changes!
+    <blockquote class="blockquote">
+      <p class="mb-0">$ git push -u origin master</p>
+    </blockquote>
+  </div>
 </div>
